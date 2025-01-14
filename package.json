@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "build": "tsc",
-    "start": " node server.js",
+    "start": "ts-node src/index.ts",
     "setup-db": "psql -f ./src/db/sport.sql",
     "seed": "PGDATABASE=sports_app node src/db/run-seed.js"
   },
