@@ -1,0 +1,37 @@
+[
+    {
+        "manager_id":1,
+        "name":"Arian",
+        "email":"a@outlook.com",
+        "date_joined":1597363200000,
+        "preferred_game_style":"attacking"
+    },
+    {
+        "manager_id":2,
+        "name":"Bruno",
+        "email":"b@outlook.com",
+        "date_joined":1603411200000,
+        "preferred_game_style":"attacking"
+    },
+    {
+        "manager_id":3,
+        "name":"Ghiffari",
+        "email":"c@outlook.com",
+        "date_joined":1585612800000,
+        "preferred_game_style":"attacking"
+    },
+    {
+        "manager_id":4,
+        "name":"Ibrahim",
+        "email":"d@outlook.com",
+        "date_joined":1609113600000,
+        "preferred_game_style":"defensive"
+    },
+    {
+        "manager_id":5,
+        "name":"Tayyab",
+        "email":"e@outlook.com",
+        "date_joined":1608422400000,
+        "preferred_game_style":"defensive"
+    }
+]
