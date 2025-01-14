@@ -1,0 +1,5 @@
+You are now connected to database "sports_app" as user "ticojauad".
+ manager_id | manager_name | email | date_joined | preferred_playing_style | preferred_formation 
+------------+--------------+-------+-------------+-------------------------+---------------------
+(0 rows)
+

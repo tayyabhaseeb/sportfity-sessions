@@ -7,14 +7,17 @@
     "test": "jest",
     "build": "tsc",
     "start": " node server.js",
-    "setup-db": "psql -f ./src/db/sport.sql"
+    "setup-db": "psql -f ./src/db/sport.sql",
+    "seed": "PGDATABASE=sports_app node src/db/run-seed.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "pg": "^8.13.1"
+    "pg": "^8.13.1",
+    "pg-format": "^1.0.4"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
