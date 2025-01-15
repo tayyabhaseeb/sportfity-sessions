@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const { getOrganiser } = require("./controllers/organisersController");
 
 // const playersRouter = require("./routers/playersRouter");
 
@@ -9,7 +10,6 @@ const app = express();
 
 // app.use("/api/players", playersRouter);
 
-app.get("/", (req, res) => {
-  res.send("first api");
-});
+app.get("/api/organisers", getOrganiser);
+
 module.exports = { app };
