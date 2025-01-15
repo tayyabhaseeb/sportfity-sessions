@@ -1,6 +1,6 @@
 module.exports = [
   {
-    name: "A",
+    team_name: "A",
     league_id: 1,
     manager_id: 5,
     wins: 3,
@@ -10,7 +10,7 @@ module.exports = [
     points: 10,
   },
   {
-    name: "B",
+    team_name: "B",
     league_id: 1,
     manager_id: 4,
     wins: 1,
@@ -20,7 +20,7 @@ module.exports = [
     points: 4,
   },
   {
-    name: "C",
+    team_name: "C",
     league_id: 1,
     manager_id: 3,
     wins: 2,
@@ -30,7 +30,7 @@ module.exports = [
     points: 7,
   },
   {
-    name: "D",
+    team_name: "D",
     league_id: 1,
     manager_id: 2,
     wins: 0,
@@ -40,7 +40,7 @@ module.exports = [
     points: 1,
   },
   {
-    name: "E",
+    team_name: "E",
     league_id: 1,
     manager_id: 1,
     wins: 1,
@@ -50,7 +50,7 @@ module.exports = [
     points: 6,
   },
   {
-    name: "F",
+    team_name: "F",
     league_id: null,
     manager_id: null,
     wins: null,
@@ -60,7 +60,7 @@ module.exports = [
     points: null,
   },
   {
-    name: "G",
+    team_name: "G",
     league_id: null,
     manager_id: null,
     wins: null,
@@ -70,7 +70,7 @@ module.exports = [
     points: null,
   },
   {
-    name: "H",
+    team_name: "H",
     league_id: null,
     manager_id: null,
     wins: null,
