@@ -1,10 +1,14 @@
 const db = require("./connection.js");
 const format = require("pg-format");
-const { leagues, players } = require("./data/test-data/index.js");
+const { leagues, players, match_team } = require("./data/test-data/index.js");
 const organisers = require("./data/test-data/organisers.js");
 const teams = require("./data/test-data/teams.js");
 const matches = require("./data/test-data/matches.js");
 const managers = require("./data/test-data/managers.js");
+const managers_leagues = require("./data/test-data/managers_leagues.js");
+const match_player = require("./data/test-data/match_player.js");
+const team_league = require("./data/test-data/team_league.js");
+const team_players = require("./data/test-data/team_players.js");
 
 const seed = () => {
   return db
@@ -49,7 +53,7 @@ const seed = () => {
       return createLeagues();
     })
     .then(() => {
-      return joinLeagueAndManager();
+      return joinLeagueManager();
     })
     .then(() => {
       return createTeams();
@@ -89,6 +93,21 @@ const seed = () => {
     })
     .then(() => {
       return insertMatch();
+    })
+    .then(() => {
+      return insertManagerLeague();
+    })
+    .then(() => {
+      return insertMatchPlayer();
+    })
+    .then(() => {
+      return insertMatchTeam();
+    })
+    .then(() => {
+      return insertLeaguesTeam();
+    })
+    .then(() => {
+      return insertTeamPlayers();
     });
 };
 
@@ -125,7 +144,7 @@ const createLeagues = () => {
       );`);
 };
 
-const joinLeagueAndManager = () => {
+const joinLeagueManager = () => {
   return db.query(`
     CREATE TABLE league_manager(
     league_manager SERIAL PRIMARY KEY,
@@ -187,8 +206,8 @@ const joinMatchPlayers = () => {
   return db.query(`
         CREATE TABLE match_players(
         match_players_id SERIAL PRIMARY  KEY,
-        match_id INT REFERENCES matches(match_id),
         player_id INT REFERENCES players(player_id),
+        match_id INT REFERENCES matches(match_id),
         goals INT DEFAULT 0,
         assists INT DEFAULT 0
   );`);
@@ -199,9 +218,18 @@ const joinMatchTeam = () => {
         CREATE TABLE match_teams(
         match_teams_id SERIAL PRIMARY  KEY,
         match_id INT REFERENCES matches(match_id),
-        team_id INT REFERENCES teams(team_id)
+        team_id INT REFERENCES teams(team_id),
+        score INT
         );
         `);
+};
+
+const joinTeamLeague = () => {
+  return db.query(`CREATE TABLE team_leagues(
+                  team_leagues_id SERIAL PRIMARY KEY,
+                  team_id INT NOT NULL,
+                  league_id INT NOT NULL
+                  );`);
 };
 
 const joinTeamPlayers = () => {
@@ -322,6 +350,57 @@ const insertMatch = () => {
     })
   );
   return db.query(insertMatchQueryStr);
+};
+
+const insertManagerLeague = () => {
+  const insertManagerLeagueQueryStr = format(
+    "INSERT INTO league_manager (league_id, manager_id) VALUES %L",
+    managers_leagues.map(({ league_id, manager_id }) => {
+      return [league_id, manager_id];
+    })
+  );
+  return db.query(insertManagerLeagueQueryStr);
+};
+
+const insertMatchPlayer = () => {
+  const insertMatchPlayerQueryStr = format(
+    "INSERT INTO match_players (player_id, match_id, goals, assists) VALUES %L",
+    match_player.map(({ player_id, match_id, goals, assists }) => {
+      return [player_id, match_id, goals, assists];
+    })
+  );
+  return db.query(insertMatchPlayerQueryStr);
+};
+
+const insertMatchTeam = () => {
+  const insertMatchTeamQueryStr = format(
+    "INSERT INTO match_teams (match_id, team_id, score) VALUES %L",
+    match_team.map(({ match_id, team_id, score }) => {
+      return [match_id, team_id, score];
+    })
+  );
+
+  return db.query(insertMatchTeamQueryStr);
+};
+
+const insertLeaguesTeam = () => {
+  const insertTeamLeagueQueryStr = format(
+    "INSERT INTO leagues_team (team_id, league_id) VALUES %L",
+    team_league.map(({ team_id, league_id }) => {
+      return [team_id, league_id];
+    })
+  );
+  return db.query(insertTeamLeagueQueryStr);
+};
+
+const insertTeamPlayers = () => {
+  const insertTeamPlayersQueryStr = format(
+    "INSERT INTO team_players (team_id, player_id) VALUES %L",
+    team_players.map(({ team_id, player_id }) => {
+      return [team_id, player_id];
+    })
+  );
+  return db.query(insertTeamPlayersQueryStr);
 };
 
 module.exports = seed;
