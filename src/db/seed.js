@@ -1,4 +1,10 @@
 const db = require("./connection.js");
+const format = require("pg-format");
+const { leagues, players } = require("./data/test-data/index.js");
+const organisers = require("./data/test-data/organisers.js");
+const teams = require("./data/test-data/teams.js");
+const matches = require("./data/test-data/matches.js");
+const managers = require("./data/test-data/managers.js");
 
 const seed = () => {
   return db
@@ -65,6 +71,24 @@ const seed = () => {
     })
     .then(() => {
       return joinTeamPlayers();
+    })
+    .then(() => {
+      return insertOrganiser();
+    })
+    .then(() => {
+      return insertLeague();
+    })
+    .then(() => {
+      return insertManager();
+    })
+    .then(() => {
+      return insertPlayers();
+    })
+    .then(() => {
+      return insertTeam();
+    })
+    .then(() => {
+      return insertMatch();
     });
 };
 
@@ -72,7 +96,7 @@ const createOrganisers = () => {
   return db.query(`
         create table organisers(
         organiser_id SERIAL PRIMARY KEY,
-        organiser_name VARCHAR (250) not NULL,
+        organiser_name VARCHAR (250) NOT NULL,
         email VARCHAR(250) NOT NULL,
         date_joined VARCHAR(250) NOT NULL
         );`);
@@ -85,8 +109,7 @@ const createManagers = () => {
         manager_name VARCHAR (250) NOT NULL,
         email VARCHAR (250) NOT NULL,
         date_joined VARCHAR(250) NOT NULL,
-        preferred_playing_style VARCHAR(250),
-        preferred_formation VARCHAR(250)
+        preferred_game_style VARCHAR(250)
     );`);
 };
 
@@ -116,11 +139,13 @@ const createTeams = () => {
     CREATE TABLE teams(
     team_id SERIAL PRIMARY KEY,
     team_name VARCHAR (250) NOT NULL,
+    league_id INT,
+    manager_id INT REFERENCES managers(manager_id),
     wins INT DEFAULT 0 ,
     losses INT DEFAULT 0,
+    draws INT DEFAULT 0,
     league_position INT,
-    points INT,
-    manager_id INT REFERENCES managers(manager_id)
+    points INT
   );
   `);
 };
@@ -139,11 +164,8 @@ const createMatches = () => {
   match_id SERIAL PRIMARY KEY,
     match_date VARCHAR(250),
     start_time VARCHAR(250),
-    duration VARCHAR(250),
-    team_one_id INT references teams(team_id),
-    team_two_id INT references teams(team_id),
-  	team_one_score INT,
-    team_two_score INT
+    duration INT,
+    league_id INT
   );
     `);
 };
@@ -156,9 +178,7 @@ const createPlayers = () => {
         player_email VARCHAR(250) NOT NULL,
         date_joined VARCHAR(250) NOT NULL,
         preferred_position VARCHAR(250),
-        preferred_playing_style VARCHAR(250),
-        goals INT DEFAULT 0,
-        assists INT DEFAULT 0
+        preferred_game_style VARCHAR(250)
         );
         `);
 };
@@ -192,6 +212,116 @@ const joinTeamPlayers = () => {
         player_id INT REFERENCES players(player_id)
         );
         `);
+};
+
+const insertLeague = () => {
+  const insertLeagueQueryStr = format(
+    "INSERT INTO leagues (league_name, start_date, end_date, organiser_id) VALUES %L;",
+    leagues.map(({ league_name, start_date, end_date, organiser_id }) => {
+      return [
+        league_name,
+        new Date(start_date),
+        new Date(end_date),
+        organiser_id,
+      ];
+    })
+  );
+
+  return db.query(insertLeagueQueryStr);
+};
+
+const insertOrganiser = () => {
+  const insertOrganiserQueryStr = format(
+    "INSERT INTO organisers (organiser_name, date_joined, email) VALUES %L",
+    organisers.map(({ organiser_name, date_joined, email }) => {
+      return [organiser_name, new Date(date_joined), email];
+    })
+  );
+
+  return db.query(insertOrganiserQueryStr);
+};
+
+const insertManager = () => {
+  const insertManagerQueryStr = format(
+    "INSERT INTO managers (manager_name, email, date_joined, preferred_game_style) VALUES %L",
+    managers.map(
+      ({ manager_name, email, date_joined, preferred_game_style }) => {
+        return [
+          manager_name,
+          email,
+          new Date(date_joined),
+          preferred_game_style,
+        ];
+      }
+    )
+  );
+
+  return db.query(insertManagerQueryStr);
+};
+
+const insertPlayers = () => {
+  const insertPlayerQueryStr = format(
+    "INSERT INTO players (player_name, player_email, date_joined, preferred_game_style, preferred_position) VALUES %L",
+    players.map(
+      ({
+        player_name,
+        player_email,
+        date_joined,
+        preferred_game_style,
+        preferred_position,
+      }) => {
+        return [
+          player_name,
+          player_email,
+          new Date(date_joined),
+          preferred_game_style,
+          preferred_position,
+        ];
+      }
+    )
+  );
+  db.query(insertPlayerQueryStr);
+};
+
+const insertTeam = () => {
+  const insertTeamQueryStr = format(
+    "INSERT INTO teams (team_name, league_id, manager_id, wins, losses, draws, league_position, points) VALUES %L",
+    teams.map(
+      ({
+        team_name,
+        league_id,
+        manager_id,
+        wins,
+        losses,
+        draws,
+        league_position,
+        points,
+      }) => {
+        return [
+          team_name,
+          league_id,
+          manager_id,
+          wins,
+          losses,
+          draws,
+          league_position,
+          points,
+        ];
+      }
+    )
+  );
+
+  return db.query(insertTeamQueryStr);
+};
+
+const insertMatch = () => {
+  const insertMatchQueryStr = format(
+    "INSERT INTO matches (match_date, start_time, duration, league_id) VALUES %L",
+    matches.map(({ match_date, start_time, duration, league_id }) => {
+      return [new Date(match_date), start_time, duration, league_id];
+    })
+  );
+  return db.query(insertMatchQueryStr);
 };
 
 module.exports = seed;
