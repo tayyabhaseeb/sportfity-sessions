@@ -1,10 +1,9 @@
 const express = require("express");
-const app = express();
-const { getOrganiser } = require("./controllers/organisersController");
 const { getPlayers } = require("./controllers/playersController");
+const { getAllManagers } = require("./controllers/managersController");
+const app = express();
 
 app.get("/api/players", getPlayers);
-
-app.get("/api/organisers", getOrganiser);
+app.get("/api/managers", getAllManagers);
 
 module.exports = { app };
