@@ -1,0 +1,11 @@
+exports.leagues = require("./leagues");
+exports.managers = require("./managers");
+exports.matches = require("./matches");
+exports.players = require("./players");
+exports.teams = require("./teams");
+exports.organisers = require("./organisers");
+exports.managers_leagues = require("./managers_leagues");
+exports.match_player = require("./match_player");
+exports.team_league = require("./team_league");
+exports.match_team = require("./match_teams");
+exports.team_players = require("./team_players");
