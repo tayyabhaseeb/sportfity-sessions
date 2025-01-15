@@ -1,3 +1,4 @@
+const { log } = require("console");
 const db = require("../src/db/connection");
 
 function fetchPlayers() {

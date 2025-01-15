@@ -1,12 +1,16 @@
 const express = require("express");
-const app = express();
-const { getOrganiser } = require("./controllers/organisersController");
 const { getPlayers } = require("./controllers/playersController");
+const app = express();
 const { getLeagues } = require("./controllers/leaguesController");
 
-app.get("/api/players", getPlayers);
+const { getTeams } = require("./controllers/teamsController");
 
-app.get("/api/organisers", getOrganiser);
+const { getAllManagers } = require("./controllers/managersController");
+
+app.get("/api/players", getPlayers);
+app.get("/api/managers", getAllManagers);
+
+app.get("/api/teams", getTeams);
 
 app.get("/api/leagues", getLeagues);
 
