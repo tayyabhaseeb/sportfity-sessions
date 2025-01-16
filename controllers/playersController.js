@@ -1,4 +1,3 @@
-
 const { fetchPlayers, fetchSpecificPlayer } = require("../models/playersModel");
 const { fetchPlayersByTeamId } = require("../models/playersModel");
 
@@ -8,7 +7,6 @@ const {
   postNewPlayer,
   fetchUpdatedPlayer,
 } = require("../models/playersModel");
-
 
 exports.getPlayers = (req, res) => {
   fetchPlayers().then((players) => {
@@ -32,7 +30,7 @@ exports.getPlayersByTeamId = (req, res) => {
   fetchPlayersByTeamId(team_id).then((players) => {
     res.status(200).send(players);
   });
-
+};
 exports.addNewPlayer = (req, res, next) => {
   const {
     player_name,
@@ -79,5 +77,4 @@ exports.updateSpecificPlayer = (req, res, next) => {
     .catch((err) => {
       next(err);
     });
-
 };

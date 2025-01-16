@@ -8,7 +8,7 @@ const {
 } = require("./controllers/playersController");
 
 const { getLeagues } = require("./controllers/leaguesController");
-
+const {
   addNewPlayer,
   updateSpecificPlayer,
 } = require("./controllers/playersController");
@@ -27,8 +27,6 @@ const { getOrganiser } = require("./controllers/organisersController");
 const { getMatches, getMatchById } = require("./controllers/matchesController");
 const { getTeamsById } = require("./controllers/teamsController");
 
-
-
 app.use(express.json());
 
 //players
@@ -39,7 +37,6 @@ const { getMatches, getMatchById } = require("./controllers/matchesController");
 const { getTeamsById } = require("./controllers/teamsController");
 
 app.use(express.json());
-
 
 app.get("/api/players", getPlayers);
 
@@ -77,7 +74,6 @@ app.use((err, req, res, next) => {
   res.status(500).send({ msg: "Internal Server Error" });
 });
 app.get("/api/matches", getMatches);
-
 
 app.get("/api/matches/:match_id", getMatchById);
 
