@@ -8,3 +8,12 @@ exports.fetchMatches = () => {
     })
     .catch((err) => console.log(err));
 };
+
+exports.fetchMatchById = (matchId) => {
+  return db
+    .query(`SELECT * FROM matches WHERE match_id = $1;`, [matchId])
+    .then(({ rows }) => {
+      return rows[0];
+    })
+    .catch((err) => console.log(err));
+};

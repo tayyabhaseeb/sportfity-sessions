@@ -5,7 +5,7 @@ const { getLeagues } = require("./controllers/leaguesController");
 const { getTeams } = require("./controllers/teamsController");
 const { getAllManagers } = require("./controllers/managersController");
 const { getOrganiser } = require("./controllers/organisersController");
-const { getMatches } = require("./controllers/matchesController");
+const { getMatches, getMatchById } = require("./controllers/matchesController");
 
 app.get("/api/players", getPlayers);
 
@@ -18,5 +18,7 @@ app.get("/api/leagues", getLeagues);
 app.get("/api/organisers", getOrganiser);
 
 app.get("/api/matches", getMatches);
+
+app.get("/api/matches/:match_id", getMatchById);
 
 module.exports = { app };
