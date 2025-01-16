@@ -7,7 +7,6 @@ const {
   getPlayersByTeamId,
 } = require("./controllers/playersController");
 
-const { getLeagues } = require("./controllers/leaguesController");
 const {
   addNewPlayer,
   updateSpecificPlayer,
@@ -24,6 +23,7 @@ const {
 
 const {
   getAllManagers,
+  getManagerById,
   addManager,
   updateManager,
 } = require("./controllers/managersController");
@@ -42,6 +42,7 @@ app.patch("/api/players/:player_id", updateSpecificPlayer);
 
 //managers
 app.get("/api/managers", getAllManagers);
+app.get("/api/managers/:manager_id", getManagerById);
 app.post("/api/managers", addManager);
 app.patch("/api/managers/:manager_id", updateManager);
 
@@ -56,7 +57,6 @@ app.get("/api/leagues/:league_id", getLeagueById);
 //organisers
 app.get("/api/organisers", getOrganiser);
 
-
 app.get("/api/matches", getMatches);
 
 app.get("/api/matches/:match_id", getMatchById);
@@ -64,7 +64,6 @@ app.get("/api/matches/:match_id", getMatchById);
 app.get("/api/teams/:team_id", getTeamsById);
 
 app.get("/api/teams/:team_id/players", getPlayersByTeamId);
-
 
 app.use((err, req, res, next) => {
   if (err.status) {

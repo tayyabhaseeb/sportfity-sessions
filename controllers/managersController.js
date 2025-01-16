@@ -1,13 +1,25 @@
 const {
   fetchManagers,
+  fetchManagerById,
   postManager,
   patchManager,
 } = require("../models/managersModel");
 
-exports.getAllManagers = (req, res) => {
-  fetchManagers().then((managers) => {
-    res.status(200).send({ managers });
-  });
+exports.getAllManagers = (req, res, next) => {
+  fetchManagers()
+    .then((managers) => {
+      res.status(200).send({ managers });
+    })
+    .catch(next);
+};
+
+exports.getManagerById = (req, res, next) => {
+  const { manager_id } = req.params;
+  fetchManagerById(manager_id)
+    .then((manager) => {
+      res.status(200).send({ manager });
+    })
+    .catch(next);
 };
 
 exports.addManager = (req, res, next) => {
@@ -20,14 +32,12 @@ exports.addManager = (req, res, next) => {
 };
 
 exports.updateManager = (req, res, next) => {
-  console.log("hit controller");
   const { manager_id } = req.params;
   const { manager_name, email, preferred_game_style } = req.body;
 
   patchManager(manager_id, manager_name, email, preferred_game_style)
-    .then((body) => {
-      res.status(204).send({ body });
-      console.log("response retuend");
+    .then((manager) => {
+      res.status(200).send({ manager });
     })
     .catch(next);
 };

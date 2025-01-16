@@ -1,4 +1,3 @@
-const { fetchPlayers, fetchSpecificPlayer } = require("../models/playersModel");
 const { fetchPlayersByTeamId } = require("../models/playersModel");
 
 const {
