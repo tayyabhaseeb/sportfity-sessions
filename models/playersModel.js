@@ -31,4 +31,22 @@ function postNewPlayer(name, email, position, style, date_joined) {
     });
 }
 
-module.exports = { fetchPlayers, fetchSpecificPlayer, postNewPlayer };
+function fetchUpdatedPlayer(id, name, email, position, style) {
+  return db
+    .query(
+      `UPDATE players SET player_name = $1 , player_email = $2 , preferred_position = $3 , preferred_game_style = $4 WHERE player_id = $5
+       RETURNING *
+      `,
+      [name, email, position, style, id]
+    )
+    .then(({ rows }) => {
+      return rows[0];
+    });
+}
+
+module.exports = {
+  fetchPlayers,
+  fetchSpecificPlayer,
+  postNewPlayer,
+  fetchUpdatedPlayer,
+};
