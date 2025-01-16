@@ -11,11 +11,13 @@ const {
   addNewPlayer,
   updateSpecificPlayer,
 } = require("./controllers/playersController");
+
 const {
   getLeagues,
   getLeagueById,
 } = require("./controllers/leaguesController");
 
+const { getTeams } = require("./controllers/teamsController");
 const {
   getTeams,
   getTeamsByLeagueId,
@@ -27,14 +29,19 @@ const {
   addManager,
   updateManager,
 } = require("./controllers/managersController");
-const { getOrganiser } = require("./controllers/organisersController");
 
+const { getOrganiser } = require("./controllers/organisersController");
 const { getMatches, getMatchById } = require("./controllers/matchesController");
 const { getTeamsById } = require("./controllers/teamsController");
+const { getMatches, getMatchById } = require("./controllers/matchesController");
+const { getTeamsById } = require("./controllers/teamsController");
+
+
 
 app.use(express.json());
 
 //players
+app.get("/api/players", getPlayers);
 app.get("/api/players", getPlayers);
 app.get("/api/players/:player_id", getSpecificPlayer);
 app.post("/api/players", addNewPlayer);
@@ -49,6 +56,10 @@ app.patch("/api/managers/:manager_id", updateManager);
 //teams
 app.get("/api/teams", getTeams);
 app.get("/api/leagues/:league_id/teams", getTeamsByLeagueId);
+app.get("/api/teams/:team_id", getTeamsById);
+app.get("/api/teams/:team_id/players", getPlayersByTeamId);
+app.get("/api/teams/:team_id", getTeamsById);
+app.get("/api/teams/:team_id/players", getPlayersByTeamId);
 
 //leagues
 app.get("/api/leagues", getLeagues);
@@ -57,13 +68,12 @@ app.get("/api/leagues/:league_id", getLeagueById);
 //organisers
 app.get("/api/organisers", getOrganiser);
 
-app.get("/api/matches", getMatches);
 
+
+//matches
+app.get("/api/matches", getMatches);
 app.get("/api/matches/:match_id", getMatchById);
 
-app.get("/api/teams/:team_id", getTeamsById);
-
-app.get("/api/teams/:team_id/players", getPlayersByTeamId);
 
 app.use((err, req, res, next) => {
   if (err.status) {
@@ -80,4 +90,7 @@ app.use((err, req, res, next) => {
 app.use((err, req, res, next) => {
   res.status(500).send({ msg: "Internal Server Error" });
 });
+
+
+
 module.exports = { app };
