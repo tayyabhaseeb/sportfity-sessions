@@ -6,6 +6,7 @@ const { getTeams } = require("./controllers/teamsController");
 const { getAllManagers } = require("./controllers/managersController");
 const { getOrganiser } = require("./controllers/organisersController");
 const { getMatches } = require("./controllers/matchesController");
+const { getTeamsById } = require("./controllers/teamsController");
 
 app.get("/api/players", getPlayers);
 
