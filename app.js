@@ -30,11 +30,20 @@ const {
   updateManager,
 } = require("./controllers/managersController");
 
+
+const {
+  getMatches,
+  getMatchById,
+  getMatchStatsByMatchId,
+  getPlayerGoalsByMatchId,
+} = require("./controllers/matchesController");
+const { getTeamsById } = require("./controllers/teamsController");
+
+app.use(express.json());
+
+//players
+app.get("/api/players", getPlayers);
 const { getOrganiser } = require("./controllers/organisersController");
-const { getMatches, getMatchById } = require("./controllers/matchesController");
-const { getTeamsById } = require("./controllers/teamsController");
-const { getMatches, getMatchById } = require("./controllers/matchesController");
-const { getTeamsById } = require("./controllers/teamsController");
 
 
 
@@ -64,6 +73,12 @@ app.get("/api/teams/:team_id/players", getPlayersByTeamId);
 //leagues
 app.get("/api/leagues", getLeagues);
 app.get("/api/leagues/:league_id", getLeagueById);
+
+//matches
+app.get("/api/matches", getMatches);
+app.get("/api/matches/:match_id", getMatchById);
+app.get("/api/matches/:match_id/stats", getMatchStatsByMatchId);
+app.get("/api/matches/:match_id/player_goals", getPlayerGoalsByMatchId);
 
 //organisers
 app.get("/api/organisers", getOrganiser);
