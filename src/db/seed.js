@@ -224,14 +224,6 @@ const joinMatchTeam = () => {
         `);
 };
 
-const joinTeamLeague = () => {
-  return db.query(`CREATE TABLE team_leagues(
-                  team_leagues_id SERIAL PRIMARY KEY,
-                  team_id INT NOT NULL,
-                  league_id INT NOT NULL
-                  );`);
-};
-
 const joinTeamPlayers = () => {
   return db.query(`
         CREATE TABLE team_players(
