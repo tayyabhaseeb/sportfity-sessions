@@ -13,4 +13,5 @@ function fetchTeamsById(team_id) {
       return rows;
     });
 }
+
 module.exports = { fetchTeams, fetchTeamsById };
