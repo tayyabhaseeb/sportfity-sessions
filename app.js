@@ -17,7 +17,11 @@ const {
   getLeagueById,
 } = require("./controllers/leaguesController");
 
-const { getTeams } = require("./controllers/teamsController");
+const {
+  getTeams,
+  getTeamsByLeagueId,
+} = require("./controllers/teamsController");
+
 const {
   getAllManagers,
   addManager,
@@ -50,6 +54,7 @@ app.post("/api/managers", addManager);
 
 //teams
 app.get("/api/teams", getTeams);
+app.get("/api/leagues/:league_id/teams", getTeamsByLeagueId);
 
 //leagues
 app.get("/api/leagues", getLeagues);
