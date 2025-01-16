@@ -12,18 +12,22 @@ const {
   addNewPlayer,
   updateSpecificPlayer,
 } = require("./controllers/playersController");
+
 const {
   getLeagues,
   getLeagueById,
 } = require("./controllers/leaguesController");
 
 const { getTeams } = require("./controllers/teamsController");
+
 const {
   getAllManagers,
   addManager,
 } = require("./controllers/managersController");
-const { getOrganiser } = require("./controllers/organisersController");
 
+const { getOrganiser } = require("./controllers/organisersController");
+const { getMatches, getMatchById } = require("./controllers/matchesController");
+const { getTeamsById } = require("./controllers/teamsController");
 const { getMatches, getMatchById } = require("./controllers/matchesController");
 const { getTeamsById } = require("./controllers/teamsController");
 
@@ -31,15 +35,7 @@ app.use(express.json());
 
 //players
 app.get("/api/players", getPlayers);
-
-const { getMatches, getMatchById } = require("./controllers/matchesController");
-
-const { getTeamsById } = require("./controllers/teamsController");
-
-app.use(express.json());
-
 app.get("/api/players", getPlayers);
-
 app.get("/api/players/:player_id", getSpecificPlayer);
 app.post("/api/players", addNewPlayer);
 app.patch("/api/players/:player_id", updateSpecificPlayer);
@@ -58,6 +54,12 @@ app.get("/api/leagues/:league_id", getLeagueById);
 //organisers
 app.get("/api/organisers", getOrganiser);
 
+//matches
+app.get("/api/matches", getMatches);
+app.get("/api/matches/:match_id", getMatchById);
+app.get("/api/teams/:team_id", getTeamsById);
+app.get("/api/teams/:team_id/players", getPlayersByTeamId);
+
 app.use((err, req, res, next) => {
   if (err.status) {
     res.status(err.status).send({ msg: err.msg });
@@ -73,12 +75,5 @@ app.use((err, req, res, next) => {
 app.use((err, req, res, next) => {
   res.status(500).send({ msg: "Internal Server Error" });
 });
-app.get("/api/matches", getMatches);
-
-app.get("/api/matches/:match_id", getMatchById);
-
-app.get("/api/teams/:team_id", getTeamsById);
-
-app.get("/api/teams/:team_id/players", getPlayersByTeamId);
 
 module.exports = { app };
