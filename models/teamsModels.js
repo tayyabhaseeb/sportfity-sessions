@@ -32,3 +32,4 @@ function fetchTeamsByLeagueId(league_id) {
 }
 
 module.exports = { fetchTeams, fetchTeamsById, fetchTeamsByLeagueId };
+

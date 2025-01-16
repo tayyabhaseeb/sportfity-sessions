@@ -1,3 +1,6 @@
+const { fetchPlayers, fetchSpecificPlayer } = require("../models/playersModel");
+const { fetchPlayersByTeamId } = require("../models/playersModel");
+
 const {
   fetchPlayers,
   fetchSpecificPlayer,
@@ -22,6 +25,12 @@ exports.getSpecificPlayer = (req, res, next) => {
     });
 };
 
+exports.getPlayersByTeamId = (req, res) => {
+  const { team_id } = req.params;
+  fetchPlayersByTeamId(team_id).then((players) => {
+    res.status(200).send(players);
+  });
+};
 exports.addNewPlayer = (req, res, next) => {
   const {
     player_name,
