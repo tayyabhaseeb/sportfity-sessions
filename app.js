@@ -13,21 +13,16 @@ const {
 } = require("./controllers/managersController");
 const { getOrganiser } = require("./controllers/organisersController");
 
-
 app.use(express.json());
 
 //players
 app.get("/api/players", getPlayers);
 
-
 const { getMatches, getMatchById } = require("./controllers/matchesController");
 
-const { getMatches } = require("./controllers/matchesController");
 const { getTeamsById } = require("./controllers/teamsController");
 
-
 app.use(express.json());
-
 
 app.get("/api/players", getPlayers);
 
@@ -47,7 +42,6 @@ app.get("/api/leagues", getLeagues);
 //organisers
 app.get("/api/organisers", getOrganiser);
 
-
 app.use((err, req, res, next) => {
   if (err.status) {
     res.status(err.status).send({ msg: err.msg });
@@ -65,10 +59,8 @@ app.use((err, req, res, next) => {
 });
 app.get("/api/matches", getMatches);
 
-
 app.get("/api/matches/:match_id", getMatchById);
 
 app.get("/api/teams/:team_id", getTeamsById);
-
 
 module.exports = { app };
