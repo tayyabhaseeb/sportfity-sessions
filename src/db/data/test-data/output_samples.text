@@ -1,0 +1,46 @@
+You are now connected to database "sports_app" as user "gaulia".
+ match_id |         match_date         | start_time | duration | team_name | league_name | score 
+----------+----------------------------+------------+----------+-----------+-------------+-------
+        2 | 2024-09-14 00:00:00.000+00 | 19:30:00   |       90 | A         | D4 Amateurs |     2
+        2 | 2024-09-14 00:00:00.000+00 | 19:30:00   |       90 | C         | D4 Amateurs |     1
+(2 rows)
+
+ match_id | player_name  | goals | team_name 
+----------+--------------+-------+-----------
+        2 | Lionel Messi |     1 | A
+        2 | Neymar Jr.   |     1 | A
+        2 | Sadio Mané   |     1 | C
+(3 rows)
+
+ match_id | team_name |     player_name      
+----------+-----------+----------------------
+        2 | A         | Lionel Messi
+        2 | A         | Cristiano Ronaldo
+        2 | A         | Neymar Jr.
+        2 | A         | Kylian Mbappé
+        2 | A         | Mohamed Salah
+        2 | C         | Sadio Mané
+        2 | C         | Karim Benzema
+        2 | C         | Luka Modrić
+        2 | C         | Paul Pogba
+        2 | C         | Gianluigi Donnarumma
+(10 rows)
+
+ team_id |    player_name    
+---------+-------------------
+       1 | Lionel Messi
+       1 | Cristiano Ronaldo
+       1 | Neymar Jr.
+       1 | Kylian Mbappé
+       1 | Mohamed Salah
+(5 rows)
+
+ league_id | league_name | team_name 
+-----------+-------------+-----------
+         1 | D4 Amateurs | A
+         1 | D4 Amateurs | B
+         1 | D4 Amateurs | C
+         1 | D4 Amateurs | D
+         1 | D4 Amateurs | E
+(5 rows)
+

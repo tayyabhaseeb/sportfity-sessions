@@ -3,9 +3,25 @@ const app = express();
 const {
   getPlayers,
   getSpecificPlayer,
+
+  getPlayersByTeamId,
 } = require("./controllers/playersController");
+
 const { getLeagues } = require("./controllers/leaguesController");
-const { getTeams } = require("./controllers/teamsController");
+const {
+  addNewPlayer,
+  updateSpecificPlayer,
+} = require("./controllers/playersController");
+const {
+  getLeagues,
+  getLeagueById,
+} = require("./controllers/leaguesController");
+
+const {
+  getTeams,
+  getTeamsByLeagueId,
+} = require("./controllers/teamsController");
+
 const {
   getAllManagers,
   addManager,
@@ -13,19 +29,16 @@ const {
 } = require("./controllers/managersController");
 const { getOrganiser } = require("./controllers/organisersController");
 
+const { getMatches, getMatchById } = require("./controllers/matchesController");
+const { getTeamsById } = require("./controllers/teamsController");
+
 app.use(express.json());
 
 //players
 app.get("/api/players", getPlayers);
-
-const { getMatches, getMatchById } = require("./controllers/matchesController");
-
-// const { getMatches } = require("./controllers/matchesController");
-const { getTeamsById } = require("./controllers/teamsController");
-
-app.get("/api/players", getPlayers);
-
 app.get("/api/players/:player_id", getSpecificPlayer);
+app.post("/api/players", addNewPlayer);
+app.patch("/api/players/:player_id", updateSpecificPlayer);
 
 //managers
 app.get("/api/managers", getAllManagers);
@@ -34,12 +47,24 @@ app.patch("/api/managers/:manager_id", updateManager);
 
 //teams
 app.get("/api/teams", getTeams);
+app.get("/api/leagues/:league_id/teams", getTeamsByLeagueId);
 
 //leagues
 app.get("/api/leagues", getLeagues);
+app.get("/api/leagues/:league_id", getLeagueById);
 
 //organisers
 app.get("/api/organisers", getOrganiser);
+
+
+app.get("/api/matches", getMatches);
+
+app.get("/api/matches/:match_id", getMatchById);
+
+app.get("/api/teams/:team_id", getTeamsById);
+
+app.get("/api/teams/:team_id/players", getPlayersByTeamId);
+
 
 app.use((err, req, res, next) => {
   if (err.status) {
@@ -56,10 +81,4 @@ app.use((err, req, res, next) => {
 app.use((err, req, res, next) => {
   res.status(500).send({ msg: "Internal Server Error" });
 });
-app.get("/api/matches", getMatches);
-
-app.get("/api/matches/:match_id", getMatchById);
-
-app.get("/api/teams/:team_id", getTeamsById);
-
 module.exports = { app };
