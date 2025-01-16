@@ -29,3 +29,21 @@ exports.postManager = (manager) => {
       return rows[0];
     });
 };
+
+exports.patchManager = (
+  manager_id,
+  manager_name,
+  email,
+  preferred_game_style
+) => {
+  return db
+    .query(
+      `UPDATE managers
+      SET manager_name = $1, email = $2, preferred_game_style=$3
+       WHERE manager_id = $4 RETURNING *`,
+      [manager_name, email, preferred_game_style, manager_id]
+    )
+    .then(({ rows }) => {
+      return rows[0];
+    });
+};
