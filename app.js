@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
-const { getPlayers } = require("./controllers/playersController");
+const {
+  getPlayers,
+  getSpecificPlayer,
+} = require("./controllers/playersController");
 const { getLeagues } = require("./controllers/leaguesController");
 const { getTeams } = require("./controllers/teamsController");
 const {
@@ -9,10 +12,22 @@ const {
 } = require("./controllers/managersController");
 const { getOrganiser } = require("./controllers/organisersController");
 
+
 app.use(express.json());
 
 //players
 app.get("/api/players", getPlayers);
+
+
+const { getMatches, getMatchById } = require("./controllers/matchesController");
+
+const { getMatches } = require("./controllers/matchesController");
+const { getTeamsById } = require("./controllers/teamsController");
+
+
+app.get("/api/players", getPlayers);
+
+app.get("/api/players/:player_id", getSpecificPlayer);
 
 //managers
 app.get("/api/managers", getAllManagers);
@@ -26,6 +41,7 @@ app.get("/api/leagues", getLeagues);
 
 //organisers
 app.get("/api/organisers", getOrganiser);
+
 
 app.use((err, req, res, next) => {
   if (err.status) {
@@ -42,5 +58,12 @@ app.use((err, req, res, next) => {
 app.use((err, req, res, next) => {
   res.status(500).send({ msg: "Internal Server Error" });
 });
+app.get("/api/matches", getMatches);
+
+
+app.get("/api/matches/:match_id", getMatchById);
+
+app.get("/api/teams/:team_id", getTeamsById);
+
 
 module.exports = { app };
