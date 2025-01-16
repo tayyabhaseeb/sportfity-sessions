@@ -3,6 +3,7 @@ const app = express();
 const {
   getPlayers,
   getSpecificPlayer,
+  addNewPlayer,
 } = require("./controllers/playersController");
 const { getLeagues } = require("./controllers/leaguesController");
 const { getTeams } = require("./controllers/teamsController");
@@ -25,9 +26,13 @@ const { getMatches } = require("./controllers/matchesController");
 const { getTeamsById } = require("./controllers/teamsController");
 
 
+app.use(express.json());
+
+
 app.get("/api/players", getPlayers);
 
 app.get("/api/players/:player_id", getSpecificPlayer);
+app.post("/api/players", addNewPlayer);
 
 //managers
 app.get("/api/managers", getAllManagers);

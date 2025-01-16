@@ -17,4 +17,18 @@ function fetchSpecificPlayer(id) {
     });
 }
 
-module.exports = { fetchPlayers, fetchSpecificPlayer };
+function postNewPlayer(name, email, position, style, date_joined) {
+  return db
+    .query(
+      `INSERT INTO players(player_name, player_email,preferred_position, preferred_game_style, date_joined)
+    VALUES($1,$2,$3,$4,$5)
+    RETURNING *
+    `,
+      [name, email, position, style, date_joined]
+    )
+    .then(({ rows }) => {
+      return rows[0];
+    });
+}
+
+module.exports = { fetchPlayers, fetchSpecificPlayer, postNewPlayer };
