@@ -26,3 +26,21 @@ You are now connected to database "sports_app" as user "gaulia".
         2 | C         | Gianluigi Donnarumma
 (10 rows)
 
+ team_id |    player_name    
+---------+-------------------
+       1 | Lionel Messi
+       1 | Cristiano Ronaldo
+       1 | Neymar Jr.
+       1 | Kylian Mbappé
+       1 | Mohamed Salah
+(5 rows)
+
+ league_id | league_name | team_name 
+-----------+-------------+-----------
+         1 | D4 Amateurs | A
+         1 | D4 Amateurs | B
+         1 | D4 Amateurs | C
+         1 | D4 Amateurs | D
+         1 | D4 Amateurs | E
+(5 rows)
+
