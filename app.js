@@ -19,4 +19,6 @@ app.get("/api/organisers", getOrganiser);
 
 app.get("/api/matches", getMatches);
 
+app.get("/api/teams/:team_id", getTeamsById);
+
 module.exports = { app };
