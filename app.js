@@ -3,13 +3,13 @@ const app = express();
 const {
   getPlayers,
   getSpecificPlayer,
-
   getPlayersByTeamId,
   deleteSpecificPlayer,
 } = require("./controllers/playersController");
 
 const {
   addNewPlayer,
+  getPlayersByTeamId,
   updateSpecificPlayer,
 } = require("./controllers/playersController");
 
@@ -18,8 +18,11 @@ const {
   getLeagueById,
 } = require("./controllers/leaguesController");
 
-const { getTeams } = require("./controllers/teamsController");
-const { getTeamsByLeagueId } = require("./controllers/teamsController");
+const {
+  getTeams,
+  getTeamsByLeagueId,
+  getTeamsById,
+} = require("./controllers/teamsController");
 
 const {
   getAllManagers,
@@ -33,19 +36,15 @@ const {
   getMatchById,
   getMatchStatsByMatchId,
   getPlayerGoalsByMatchId,
+  postMatch,
 } = require("./controllers/matchesController");
-const { getTeamsById } = require("./controllers/teamsController");
+
 const { getOrganiser } = require("./controllers/organisersController");
 
-app.use(express.json());
-
-//players
-app.get("/api/players", getPlayers);
 
 app.use(express.json());
 
 //players
-app.get("/api/players", getPlayers);
 app.get("/api/players", getPlayers);
 app.get("/api/players/:player_id", getSpecificPlayer);
 app.post("/api/players", addNewPlayer);
@@ -75,13 +74,13 @@ app.get("/api/matches", getMatches);
 app.get("/api/matches/:match_id", getMatchById);
 app.get("/api/matches/:match_id/stats", getMatchStatsByMatchId);
 app.get("/api/matches/:match_id/player_goals", getPlayerGoalsByMatchId);
+app.post("/api/matches", postMatch);
 
 //organisers
 app.get("/api/organisers", getOrganiser);
 
-//matches
-app.get("/api/matches", getMatches);
-app.get("/api/matches/:match_id", getMatchById);
+//organisers
+app.get("/api/organisers", getOrganiser);
 
 app.use((err, req, res, next) => {
   if (err.status) {

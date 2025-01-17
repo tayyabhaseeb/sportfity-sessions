@@ -57,3 +57,14 @@ exports.fetchPlayerGoalsByMatchId = (match_id) => {
       return rows;
     });
 };
+
+exports.addMatch = (match_date, start_time, duration, league_id) => {
+  return db
+    .query(
+      `INSERT INTO matches(match_date, start_time, duration, league_id) VALUES($1,$2,$3,$4) RETURNING *;`,
+      [match_date, start_time, duration, league_id]
+    )
+    .then(({ rows }) => {
+      return rows[0];
+    });
+};
