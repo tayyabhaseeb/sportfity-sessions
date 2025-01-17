@@ -70,5 +70,5 @@ module.exports = {
   fetchSpecificPlayer,
   postNewPlayer,
   fetchUpdatedPlayer,
+  fetchPlayersByTeamId,
 };
-

@@ -3,6 +3,7 @@ const {
   fetchMatchById,
   fetchMatchStatsByMatchId,
   fetchPlayerGoalsByMatchId,
+  addMatch,
 } = require("../models/matchesModel");
 
 exports.getMatches = (req, res) => {
@@ -37,4 +38,15 @@ exports.getPlayerGoalsByMatchId = (req, res, next) => {
       res.status(200).send({ playerGoals });
     })
     .catch(next);
+};
+
+exports.postMatch = (req, res, next) => {
+  const { match_date, start_time, duration, league_id } = req.body;
+  addMatch(match_date, start_time, duration, league_id)
+    .then((match) => {
+      res.status(201).send({ match });
+    })
+    .catch((err) => {
+      next(err);
+    });
 };
