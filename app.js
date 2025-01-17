@@ -3,6 +3,11 @@ const app = express();
 const {
   getPlayers,
   getSpecificPlayer,
+  getPlayersByTeamId,
+  deleteSpecificPlayer,
+} = require("./controllers/playersController");
+
+const {
   addNewPlayer,
   getPlayersByTeamId,
   updateSpecificPlayer,
@@ -34,20 +39,17 @@ const {
   postMatch,
 } = require("./controllers/matchesController");
 
-app.use(express.json());
-
-//players
-app.get("/api/players", getPlayers);
 const { getOrganiser } = require("./controllers/organisersController");
 
+
 app.use(express.json());
 
 //players
-app.get("/api/players", getPlayers);
 app.get("/api/players", getPlayers);
 app.get("/api/players/:player_id", getSpecificPlayer);
 app.post("/api/players", addNewPlayer);
 app.patch("/api/players/:player_id", updateSpecificPlayer);
+app.delete("/api/players/:player_id", deleteSpecificPlayer);
 
 //managers
 app.get("/api/managers", getAllManagers);
@@ -72,9 +74,10 @@ app.get("/api/matches", getMatches);
 app.get("/api/matches/:match_id", getMatchById);
 app.get("/api/matches/:match_id/stats", getMatchStatsByMatchId);
 app.get("/api/matches/:match_id/player_goals", getPlayerGoalsByMatchId);
-app.get("/api/matches", getMatches);
-app.get("/api/matches/:match_id", getMatchById);
 app.post("/api/matches", postMatch);
+
+//organisers
+app.get("/api/organisers", getOrganiser);
 
 //organisers
 app.get("/api/organisers", getOrganiser);

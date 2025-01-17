@@ -65,10 +65,20 @@ function fetchUpdatedPlayer(id, name, email, position, style) {
     });
 }
 
+function deletePlayerModel(id) {
+  return db.query(
+    `DELETE FROM players WHERE player_id = $1
+     RETURNING *
+  `,
+    [id]
+  );
+}
+
 module.exports = {
   fetchPlayers,
   fetchSpecificPlayer,
   postNewPlayer,
   fetchUpdatedPlayer,
   fetchPlayersByTeamId,
+  deletePlayerModel,
 };
