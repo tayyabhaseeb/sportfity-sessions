@@ -19,6 +19,7 @@ const {
   getTeamsByLeagueId,
   getTeamsById,
   postTeamPlayers,
+  deleteTeamById,
 } = require("./controllers/teamsController");
 
 const {
@@ -62,10 +63,9 @@ app.get("/api/teams", getTeams);
 app.get("/api/leagues/:league_id/teams", getTeamsByLeagueId);
 app.get("/api/teams/:team_id/players", getPlayersByTeamId);
 app.get("/api/teams/:team_id", getTeamsById);
-
-app.get("/api/teams/:team_id/managers", getManagersByTeamId);
-
 app.get("/api/teams/:team_id/players", getPlayersByTeamId);
+app.delete("/api/teams/:team_id", deleteTeamById);
+app.post("/api/teams/team_players", postTeamPlayers);
 
 //leagues
 app.get("/api/leagues", getLeagues);
@@ -97,6 +97,7 @@ app.use((err, req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
+  console.log(err, "<< error reach 500");
   res.status(500).send({ msg: "Internal Server Error" });
 });
 

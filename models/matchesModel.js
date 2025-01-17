@@ -1,4 +1,5 @@
 const db = require("../src/db/connection");
+const format = require("pg-format");
 
 exports.fetchMatches = () => {
   return db
@@ -94,6 +95,16 @@ exports.addMatchPlayer = (match_id, player_id, goals, assists) => {
     .then(({ rows }) => rows[0]);
 };
 
+exports.removeMatchTeamsByTeamID = (team_id) => {
+  const removeMatchTeamsByTeamIDQueryStr = format(
+    `DELETE FROM match_teams WHERE team_id = %L RETURNING *`,
+    [team_id]
+  );
+  return db.query(removeMatchTeamsByTeamIDQueryStr).then(({ rows }) => {
+    if (!rows.length) {
+      return Promise.reject({ status: 404, msg: "Not found" });
+    }
+  });
 exports.removeMatch = (match_id) => {
   return db
     .query(`DELETE FROM matches WHERE match_id = $1 RETURNING *;`, [match_id])
