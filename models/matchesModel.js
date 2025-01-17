@@ -84,7 +84,7 @@ exports.changeMatchDetails = (
     .then(({ rows }) => {
       return rows[0];
     });
-
+};
 exports.addMatchPlayer = (match_id, player_id, goals, assists) => {
   return db
     .query(
@@ -92,5 +92,4 @@ exports.addMatchPlayer = (match_id, player_id, goals, assists) => {
       [match_id, player_id, goals, assists]
     )
     .then(({ rows }) => rows[0]);
-
 };

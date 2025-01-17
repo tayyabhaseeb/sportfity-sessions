@@ -63,7 +63,8 @@ exports.patchMatch = (req, res, next) => {
     .catch((err) => {
       next(err);
     });
-  
+};
+
 exports.addMatchPlayer = (req, res, next) => {
   const { match_id } = req.params;
   const { player_id, goals, assists } = req.body;
@@ -73,5 +74,4 @@ exports.addMatchPlayer = (req, res, next) => {
       res.status(201).send({ matchPlayer });
     })
     .catch(next);
-
 };
