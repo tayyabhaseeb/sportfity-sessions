@@ -26,14 +26,49 @@ You are now connected to database "sports_app" as user "gaulia".
         2 | C         | Gianluigi Donnarumma
 (10 rows)
 
- team_id |    player_name    
----------+-------------------
+ team_id |        player_name        
+---------+---------------------------
        1 | Lionel Messi
        1 | Cristiano Ronaldo
        1 | Neymar Jr.
        1 | Kylian Mbappé
        1 | Mohamed Salah
-(5 rows)
+       2 | Robert Lewandowski
+       2 | Kevin De Bruyne
+       2 | Harry Kane
+       2 | Erling Haaland
+       2 | Virgil van Dijk
+       3 | Sadio Mané
+       3 | Karim Benzema
+       3 | Luka Modrić
+       3 | Paul Pogba
+       3 | Gianluigi Donnarumma
+       4 | Raheem Sterling
+       4 | Son Heung-min
+       4 | Jadon Sancho
+       4 | Pierre-Emerick Aubameyang
+       4 | Alisson Becker
+       5 | Sergio Ramos
+       5 | Gerard Piqué
+       5 | Thomas Müller
+       5 | João Félix
+       5 | Frenkie de Jong
+       6 | Sergio Agüero
+       6 | Eden Hazard
+       6 | David de Gea
+       6 | Joshua Kimmich
+       6 | Mason Mount
+       7 | Andrew Robertson
+       7 | Trent Alexander-Arnold
+       7 | Phil Foden
+       7 | Leroy Sané
+       7 | Zlatan Ibrahimović
+       8 | Marco Reus
+       8 | N'Golo Kanté
+       8 | Manuel Neuer
+       8 | Jordi Alba
+       8 | Romelu Lukaku
+(40 rows)
 
  league_id | league_name | team_name 
 -----------+-------------+-----------

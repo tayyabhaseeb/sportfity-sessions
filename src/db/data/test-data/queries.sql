@@ -45,8 +45,7 @@ FROM teams
 INNER JOIN team_players
 ON teams.team_id = team_players.team_id
 INNER JOIN players
-ON team_players.player_id = players.player_id
-WHERE teams.team_id = 1;
+ON team_players.player_id = players.player_id;
 
 SELECT leagues.league_id, league_name, team_name
       FROM leagues
