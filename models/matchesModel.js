@@ -69,6 +69,22 @@ exports.addMatch = (match_date, start_time, duration, league_id) => {
     });
 };
 
+exports.changeMatchDetails = (
+  match_date,
+  start_time,
+  duration,
+  league_id,
+  match_id
+) => {
+  return db
+    .query(
+      `UPDATE matches SET match_date = $1 , start_time = $2, duration = $3, league_id = $4 WHERE match_id = $5 RETURNING *;`,
+      [match_date, start_time, duration, league_id, match_id]
+    )
+    .then(({ rows }) => {
+      return rows[0];
+    });
+
 exports.addMatchPlayer = (match_id, player_id, goals, assists) => {
   return db
     .query(
@@ -76,4 +92,5 @@ exports.addMatchPlayer = (match_id, player_id, goals, assists) => {
       [match_id, player_id, goals, assists]
     )
     .then(({ rows }) => rows[0]);
+
 };

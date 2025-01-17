@@ -36,8 +36,6 @@ ON team_players.player_id = players.player_id WHERE teams.team_id = $1;`,
     });
 }
 
-module.exports = { fetchPlayers, fetchSpecificPlayer, fetchPlayersByTeamId };
-
 function postNewPlayer(name, email, position, style, date_joined) {
   return db
     .query(
