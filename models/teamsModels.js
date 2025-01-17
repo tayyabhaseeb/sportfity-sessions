@@ -1,3 +1,4 @@
+const { error } = require("console");
 const db = require("../src/db/connection");
 const format = require("pg-format");
 
@@ -42,9 +43,46 @@ function insertTeamPlayers(team_id, player_id) {
   });
 }
 
+function removeTeamById(team_id) {
+  const removeTeamByIdQueryStr = format(
+    "DELETE FROM teams WHERE team_id = %L RETURNING *",
+    [team_id]
+  );
+  return db.query(removeTeamByIdQueryStr).then(({ rows }) => {
+    return rows;
+  });
+}
+
+function removeTeamLeagueById(team_id) {
+  const removeTeamLeagueById = format(
+    "DELETE FROM leagues_team WHERE team_id = %L RETURNING *",
+    [team_id]
+  );
+  return db.query(removeTeamLeagueById).then(({ rows }) => {
+    if (!rows.length) {
+      return Promise.reject({ status: 404, msg: "Not found" });
+    }
+  });
+}
+
+function removeTeamPlayerByTeamId(team_id) {
+  const removeTeamPlayerByTeamIdQueryStr = format(
+    "DELETE FROM team_players WHERE team_id = %L RETURNING *",
+    [team_id]
+  );
+  return db.query(removeTeamPlayerByTeamIdQueryStr).then(({ rows }) => {
+    if (!rows.length) {
+      return Promise.reject({ status: 404, msg: "Not found" });
+    }
+  });
+}
+
 module.exports = {
   fetchTeams,
   fetchTeamsById,
   fetchTeamsByLeagueId,
   insertTeamPlayers,
+  removeTeamById,
+  removeTeamLeagueById,
+  removeTeamPlayerByTeamId,
 };

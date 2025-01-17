@@ -1,4 +1,6 @@
 const db = require("../src/db/connection");
+const format = require("pg-format");
+
 exports.fetchManagers = () => {
   return db.query(`SELECT * FROM managers;`).then(({ rows }) => {
     return rows;
@@ -60,4 +62,17 @@ exports.patchManager = (
     .then(({ rows }) => {
       return rows[0];
     });
+};
+
+exports.removeManagerTeamByTeamId = (team_id) => {
+  const removeManagerTeamByTeamIdQueryStr = format(
+    `DELETE FROM manager_teams WHERE team_id = %L RETURNING *`,
+    [team_id]
+  );
+
+  return db.query(removeManagerTeamByTeamIdQueryStr).then(({ rows }) => {
+    if (!rows.length) {
+      return Promise.reject({ status: 404, msg: "Not found" });
+    }
+  });
 };
