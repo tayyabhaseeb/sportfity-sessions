@@ -9,3 +9,4 @@ exports.match_player = require("./match_player");
 exports.team_league = require("./team_league");
 exports.match_team = require("./match_teams");
 exports.team_players = require("./team_players");
+exports.manager_teams = require("./manager_teams");
