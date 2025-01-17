@@ -1,13 +1,10 @@
 const {
-  fetchPlayersByTeamId,
-  deletePlayerModel,
-} = require("../models/playersModel");
-
-const {
   fetchPlayers,
   fetchSpecificPlayer,
   postNewPlayer,
   fetchUpdatedPlayer,
+  fetchPlayersByTeamId,
+  deletePlayerModel,
 } = require("../models/playersModel");
 
 exports.getPlayers = (req, res) => {
