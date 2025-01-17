@@ -105,6 +105,8 @@ exports.removeMatchTeamsByTeamID = (team_id) => {
       return Promise.reject({ status: 404, msg: "Not found" });
     }
   });
+};
+
 exports.removeMatch = (match_id) => {
   return db
     .query(`DELETE FROM matches WHERE match_id = $1 RETURNING *;`, [match_id])
