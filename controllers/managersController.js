@@ -3,6 +3,7 @@ const {
   fetchManagerById,
   postManager,
   patchManager,
+  fetchManagersByTeamId,
 } = require("../models/managersModel");
 
 exports.getAllManagers = (req, res, next) => {
@@ -40,4 +41,16 @@ exports.updateManager = (req, res, next) => {
       res.status(200).send({ manager });
     })
     .catch(next);
+};
+
+exports.getManagersByTeamId = (req, res, next) => {
+  const { team_id } = req.params;
+  fetchManagersByTeamId(team_id)
+    .then((managers) => {
+      res.status(200).send(managers);
+    })
+    .catch((err) => {
+      console.log(err);
+      next(err);
+    });
 };
