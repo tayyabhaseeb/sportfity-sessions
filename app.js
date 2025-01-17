@@ -18,6 +18,7 @@ const {
   getTeams,
   getTeamsByLeagueId,
   getTeamsById,
+  postTeamPlayers,
 } = require("./controllers/teamsController");
 
 const {
@@ -60,6 +61,9 @@ app.get("/api/leagues/:league_id/teams", getTeamsByLeagueId);
 app.get("/api/teams/:team_id", getTeamsById);
 app.get("/api/teams/:team_id/players", getPlayersByTeamId);
 app.get("/api/teams/:team_id", getTeamsById);
+app.get("/api/teams/:team_id/players", getPlayersByTeamId);
+app.post("/api/teams/team_players", postTeamPlayers);
+
 
 //leagues
 app.get("/api/leagues", getLeagues);
@@ -87,7 +91,7 @@ app.use((err, req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  if (err.code === "22P02" || err.code === "23502") {
+  if (err.code === "22P02" || err.code === "23502" || err.code === "42601") {
     res.status(400).send({ msg: "Bad Request" });
   } else next(err);
 });
