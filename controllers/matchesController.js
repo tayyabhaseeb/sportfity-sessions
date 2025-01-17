@@ -6,6 +6,9 @@ const {
   addMatch,
   changeMatchDetails,
   addMatchPlayer,
+  removeMatch,
+  removeMatchTeams,
+  removeMatchPlayers,
 } = require("../models/matchesModel");
 
 exports.getMatches = (req, res) => {
@@ -74,4 +77,20 @@ exports.addMatchPlayer = (req, res, next) => {
       res.status(201).send({ matchPlayer });
     })
     .catch(next);
+};
+
+exports.deleteMatch = (req, res, next) => {
+  const { match_id } = req.params;
+  const removePromise = [
+    removeMatch(match_id),
+    removeMatchTeams(match_id),
+    removeMatchPlayers(match_id),
+  ];
+  Promise.all(removePromise)
+    .then((promiseResult) => {
+      res.status(200).send({ deleted: promiseResult[0] });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
