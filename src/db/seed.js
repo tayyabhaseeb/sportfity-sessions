@@ -9,6 +9,7 @@ const managers_leagues = require("./data/test-data/managers_leagues.js");
 const match_player = require("./data/test-data/match_player.js");
 const team_league = require("./data/test-data/team_league.js");
 const team_players = require("./data/test-data/team_players.js");
+const manager_teams = require("./data/test-data/manager_teams.js");
 
 const seed = () => {
   return db
@@ -77,6 +78,9 @@ const seed = () => {
       return joinTeamPlayers();
     })
     .then(() => {
+      return joinManagerTeams();
+    })
+    .then(() => {
       return insertOrganiser();
     })
     .then(() => {
@@ -108,6 +112,9 @@ const seed = () => {
     })
     .then(() => {
       return insertTeamPlayers();
+    })
+    .then(() => {
+      return insertManagerTeams();
     });
 };
 
@@ -232,6 +239,15 @@ const joinTeamPlayers = () => {
         player_id INT REFERENCES players(player_id)
         );
         `);
+};
+
+const joinManagerTeams = () => {
+  return db.query(`CREATE TABLE manager_teams(
+    manager_teams_id SERIAL PRIMARY KEY,
+    manager_id INT REFERENCES managers(manager_id),
+    team_id INT REFERENCES teams(team_id)
+    );
+    `);
 };
 
 const insertLeague = () => {
@@ -393,6 +409,16 @@ const insertTeamPlayers = () => {
     })
   );
   return db.query(insertTeamPlayersQueryStr);
+};
+
+const insertManagerTeams = () => {
+  const insertManagerTeamsQueryStr = format(
+    `INSERT INTO manager_teams (manager_id, team_id) VALUES %L`,
+    manager_teams.map(({ manager_id, team_id }) => {
+      return [manager_id, team_id];
+    })
+  );
+  return db.query(insertManagerTeamsQueryStr);
 };
 
 module.exports = seed;
