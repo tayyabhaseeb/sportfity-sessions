@@ -4,6 +4,7 @@ const {
   fetchMatchStatsByMatchId,
   fetchPlayerGoalsByMatchId,
   addMatch,
+  addMatchPlayer,
 } = require("../models/matchesModel");
 
 exports.getMatches = (req, res) => {
@@ -49,4 +50,15 @@ exports.postMatch = (req, res, next) => {
     .catch((err) => {
       next(err);
     });
+};
+
+exports.addMatchPlayer = (req, res, next) => {
+  const { match_id } = req.params;
+  const { player_id, goals, assists } = req.body;
+
+  addMatchPlayer(match_id, player_id, goals, assists)
+    .then((matchPlayer) => {
+      res.status(201).send({ matchPlayer });
+    })
+    .catch(next);
 };

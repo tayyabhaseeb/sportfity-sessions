@@ -68,3 +68,12 @@ exports.addMatch = (match_date, start_time, duration, league_id) => {
       return rows[0];
     });
 };
+
+exports.addMatchPlayer = (match_id, player_id, goals, assists) => {
+  return db
+    .query(
+      `INSERT INTO match_players (match_id, player_id, goals, assists) VALUES ($1, $2, $3, $4) RETURNING *;`,
+      [match_id, player_id, goals, assists]
+    )
+    .then(({ rows }) => rows[0]);
+};
