@@ -89,7 +89,7 @@ exports.changeMatchDetails = (
 exports.addMatchPlayer = (match_id, player_id, goals, assists) => {
   return db
     .query(
-      `INSERT INTO match_players (match_id, player_id, goals, assists) VALUES ($1, $2, $3, $4) RETURNING *;`,
+      `INSERT INTO match_players (player_id, match_id, goals, assists) VALUES ($1, $2, $3, $4) RETURNING *;`,
       [match_id, player_id, goals, assists]
     )
     .then(({ rows }) => rows[0]);
@@ -105,4 +105,37 @@ exports.removeMatchTeamsByTeamID = (team_id) => {
       return Promise.reject({ status: 404, msg: "Not found" });
     }
   });
+exports.removeMatch = (match_id) => {
+  return db
+    .query(`DELETE FROM matches WHERE match_id = $1 RETURNING *;`, [match_id])
+    .then(({ rows }) => {
+      if (rows.length === 0) {
+        return Promise.reject({ status: 404, msg: "not found 1 " });
+      }
+      return rows;
+    });
+};
+
+exports.removeMatchTeams = (match_id) => {
+  return db
+    .query(`DELETE FROM match_teams WHERE match_id = $1 RETURNING *;`, [
+      match_id,
+    ])
+    .then(({ rows }) => {
+      if (rows.length === 0) {
+        return Promise.reject({ status: 404, msg: "not found 2 " });
+      }
+    });
+};
+
+exports.removeMatchPlayers = (match_id) => {
+  return db
+    .query(`DELETE FROM match_players WHERE match_id = $1 RETURNING *;`, [
+      match_id,
+    ])
+    .then(({ rows }) => {
+      if (rows.length === 0) {
+        return Promise.reject({ status: 404, msg: "not found 3 " });
+      }
+    });
 };

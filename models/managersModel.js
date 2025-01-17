@@ -75,4 +75,22 @@ exports.removeManagerTeamByTeamId = (team_id) => {
       return Promise.reject({ status: 404, msg: "Not found" });
     }
   });
+
+exports.fetchManagersByTeamId = (team_id) => {
+  return db
+    .query(
+      `SELECT teams.team_id, manager_name
+FROM teams
+INNER JOIN manager_teams
+ON teams.team_id = manager_teams.team_id
+INNER JOIN managers
+ON manager_teams.manager_id = managers.manager_id WHERE teams.team_id = $1;`,
+      [team_id]
+    )
+    .then(({ rows }) => {
+      if (rows.length === 0) {
+        return Promise.reject({ status: 404, msg: "not found " });
+      }
+      return rows;
+    });
 };
