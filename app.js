@@ -5,11 +5,7 @@ const {
   getSpecificPlayer,
   getPlayersByTeamId,
   deleteSpecificPlayer,
-} = require("./controllers/playersController");
-
-const {
   addNewPlayer,
-  getPlayersByTeamId,
   updateSpecificPlayer,
 } = require("./controllers/playersController");
 
@@ -22,6 +18,7 @@ const {
   getTeams,
   getTeamsByLeagueId,
   getTeamsById,
+  postTeamPlayers,
 } = require("./controllers/teamsController");
 
 const {
@@ -40,7 +37,6 @@ const {
 } = require("./controllers/matchesController");
 
 const { getOrganiser } = require("./controllers/organisersController");
-
 
 app.use(express.json());
 
@@ -64,6 +60,7 @@ app.get("/api/teams/:team_id", getTeamsById);
 app.get("/api/teams/:team_id/players", getPlayersByTeamId);
 app.get("/api/teams/:team_id", getTeamsById);
 app.get("/api/teams/:team_id/players", getPlayersByTeamId);
+app.post("/api/teams/team_players", postTeamPlayers);
 
 //leagues
 app.get("/api/leagues", getLeagues);
@@ -89,7 +86,7 @@ app.use((err, req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  if (err.code === "22P02" || err.code === "23502") {
+  if (err.code === "22P02" || err.code === "23502" || err.code === "42601") {
     res.status(400).send({ msg: "Bad Request" });
   } else next(err);
 });

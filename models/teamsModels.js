@@ -1,4 +1,5 @@
 const db = require("../src/db/connection");
+const format = require("pg-format");
 
 function fetchTeams() {
   return db.query(`SELECT * FROM teams;`).then(({ rows }) => {
@@ -31,5 +32,19 @@ function fetchTeamsByLeagueId(league_id) {
     });
 }
 
-module.exports = { fetchTeams, fetchTeamsById, fetchTeamsByLeagueId };
+function insertTeamPlayers(team_id, player_id) {
+  const insertTeamPlayersQueryStr = format(
+    "INSERT INTO team_players (team_id, player_id) VALUES (%L) RETURNING *",
+    [team_id, player_id]
+  );
+  return db.query(insertTeamPlayersQueryStr).then(({ rows }) => {
+    return rows;
+  });
+}
 
+module.exports = {
+  fetchTeams,
+  fetchTeamsById,
+  fetchTeamsByLeagueId,
+  insertTeamPlayers,
+};
