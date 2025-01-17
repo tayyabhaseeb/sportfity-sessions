@@ -26,6 +26,7 @@ const {
   getManagerById,
   addManager,
   updateManager,
+  getManagersByTeamId,
 } = require("./controllers/managersController");
 
 const {
@@ -58,11 +59,12 @@ app.patch("/api/managers/:manager_id", updateManager);
 //teams
 app.get("/api/teams", getTeams);
 app.get("/api/leagues/:league_id/teams", getTeamsByLeagueId);
-app.get("/api/teams/:team_id", getTeamsById);
 app.get("/api/teams/:team_id/players", getPlayersByTeamId);
 app.get("/api/teams/:team_id", getTeamsById);
+
+app.get("/api/teams/:team_id/managers", getManagersByTeamId);
+
 app.get("/api/teams/:team_id/players", getPlayersByTeamId);
-app.post("/api/teams/team_players", postTeamPlayers);
 
 
 //leagues
