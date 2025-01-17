@@ -1,4 +1,7 @@
-const { fetchPlayersByTeamId } = require("../models/playersModel");
+const {
+  fetchPlayersByTeamId,
+  deletePlayerModel,
+} = require("../models/playersModel");
 
 const {
   fetchPlayers,
@@ -51,6 +54,7 @@ exports.addNewPlayer = (req, res, next) => {
     })
     .catch((err) => {
       next(err);
+      console.log(err);
     });
 };
 
@@ -76,4 +80,12 @@ exports.updateSpecificPlayer = (req, res, next) => {
     .catch((err) => {
       next(err);
     });
+};
+
+exports.deleteSpecificPlayer = (req, res, next) => {
+  const { player_id } = req.params;
+
+  deletePlayerModel(player_id).then(() => {
+    res.status(204).send();
+  });
 };
