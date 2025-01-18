@@ -68,7 +68,7 @@ exports.patchMatch = (req, res, next) => {
     });
 };
 
-exports.addMatchPlayer = (req, res, next) => {
+exports.postMatchPlayer = (req, res, next) => {
   const { match_id } = req.params;
   const { player_id, goals, assists } = req.body;
 
