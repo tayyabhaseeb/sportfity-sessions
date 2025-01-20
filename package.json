@@ -2,12 +2,13 @@
   "name": "sportfity-sessions",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "listen.js",
   "scripts": {
     "test": "jest",
     "start": "PGDATABASE=sports_app nodemon listen.js",
     "setup-db": "psql -f ./src/db/sport.sql",
-    "seed": "PGDATABASE=sports_app node src/db/run-seed.js"
+    "seed": "PGDATABASE=sports_app node src/db/run-seed.js",
+    "seed-prod": "NODE_ENV=production npm run seed"
   },
   "keywords": [],
   "author": "",
