@@ -1,4 +1,4 @@
 const seed = require("./seed");
-const db = require("./connection.js");
+const db = require("./connection");
 
 seed().then(() => db.end());
