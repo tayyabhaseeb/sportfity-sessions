@@ -9,6 +9,7 @@ const {
   removeMatch,
   removeMatchTeams,
   removeMatchPlayers,
+  fetchLineUpByMatchId,
 } = require("../models/matchesModel");
 
 exports.getMatches = (req, res) => {
@@ -93,4 +94,11 @@ exports.deleteMatch = (req, res, next) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+exports.getLineUpByMatchId = (req, res, next) => {
+  const { match_id } = req.params;
+  fetchLineUpByMatchId(match_id).then((line_up) => {
+    res.status(200).send({ line_up });
+  });
 };
