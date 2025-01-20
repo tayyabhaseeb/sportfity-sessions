@@ -39,6 +39,7 @@ const {
   patchMatch,
   postMatchPlayer,
   deleteMatch,
+  getLineUpByMatchId,
 } = require("./controllers/matchesController");
 
 const { getOrganiser } = require("./controllers/organisersController");
@@ -77,6 +78,7 @@ app.get("/api/matches", getMatches);
 app.get("/api/matches/:match_id", getMatchById);
 app.get("/api/matches/:match_id/stats", getMatchStatsByMatchId);
 app.get("/api/matches/:match_id/player_goals", getPlayerGoalsByMatchId);
+app.get("/api/matches/:match_id/line_up", getLineUpByMatchId);
 app.post("/api/matches", postMatch);
 app.patch("/api/matches/:match_id", patchMatch);
 app.post("/api/matches/:match_id/match_players", postMatchPlayer);

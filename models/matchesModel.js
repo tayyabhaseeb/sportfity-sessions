@@ -141,3 +141,24 @@ exports.removeMatchPlayers = (match_id) => {
       }
     });
 };
+
+exports.fetchLineUpByMatchId = (match_id) => {
+  const fetchLineUpByMatchIdQueryStr = format(
+    `SELECT matches.match_id, team_name, player_name
+        FROM matches
+        INNER JOIN match_teams
+        ON matches.match_id = match_teams.match_id
+        INNER JOIN teams
+        ON match_teams.team_id = teams.team_id
+        INNER JOIN team_players
+        ON teams.team_id = team_players.team_id
+        INNER JOIN players
+        ON team_players.player_id = players.player_id
+        WHERE matches.match_id = %L;`,
+    [match_id]
+  );
+
+  return db.query(fetchLineUpByMatchIdQueryStr).then(({ rows }) => {
+    return rows;
+  });
+};
