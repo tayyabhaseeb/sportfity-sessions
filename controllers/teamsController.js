@@ -18,8 +18,8 @@ exports.getTeams = (req, res) => {
 
 exports.getTeamsById = (req, res) => {
   const { team_id } = req.params;
-  fetchTeamsById(team_id).then((teams) => {
-    res.status(200).send(teams);
+  fetchTeamsById(team_id).then((team) => {
+    res.status(200).send(team);
   });
 };
 
