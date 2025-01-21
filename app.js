@@ -43,7 +43,8 @@ const {
 } = require("./controllers/matchesController");
 
 const { getOrganiser } = require("./controllers/organisersController");
-
+const cors = require("cors");
+app.use(cors());
 app.use(express.json());
 
 //players
