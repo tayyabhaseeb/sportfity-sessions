@@ -162,3 +162,14 @@ exports.fetchLineUpByMatchId = (match_id) => {
     return rows;
   });
 };
+
+exports.fetchMatchTeamsByMatchId = (match_id) => {
+  const fetchMatchTeamsByMatchIdQueryStr = format(
+    "SELECT * FROM match_teams WHERE match_id = %L",
+    [match_id]
+  );
+
+  return db.query(fetchMatchTeamsByMatchIdQueryStr).then(({ rows }) => {
+    return rows;
+  });
+};

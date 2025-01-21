@@ -40,6 +40,7 @@ const {
   postMatchPlayer,
   deleteMatch,
   getLineUpByMatchId,
+  getMatchTeamsByMatchId,
 } = require("./controllers/matchesController");
 
 const { getOrganiser } = require("./controllers/organisersController");
@@ -84,6 +85,7 @@ app.post("/api/matches", postMatch);
 app.patch("/api/matches/:match_id", patchMatch);
 app.post("/api/matches/:match_id/match_players", postMatchPlayer);
 app.delete("/api/matches/:match_id", deleteMatch);
+app.get("/api/matches/:match_id/match_teams", getMatchTeamsByMatchId);
 
 //organisers
 app.get("/api/organisers", getOrganiser);
