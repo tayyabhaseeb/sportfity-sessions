@@ -10,6 +10,7 @@ const {
   removeMatchTeams,
   removeMatchPlayers,
   fetchLineUpByMatchId,
+  fetchMatchTeamsByMatchId,
 } = require("../models/matchesModel");
 
 exports.getMatches = (req, res) => {
@@ -100,5 +101,12 @@ exports.getLineUpByMatchId = (req, res, next) => {
   const { match_id } = req.params;
   fetchLineUpByMatchId(match_id).then((line_up) => {
     res.status(200).send({ line_up });
+  });
+};
+
+exports.getMatchTeamsByMatchId = (req, res, next) => {
+  const { match_id } = req.params;
+  fetchMatchTeamsByMatchId(match_id).then((teams) => {
+    res.status(200).send({ teams });
   });
 };
