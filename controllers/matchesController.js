@@ -12,7 +12,9 @@ const {
   fetchLineUpByMatchId,
   fetchMatchTeamsByMatchId,
   insertMatchTeams,
+  updateMatchTeamsByMatchId,
 } = require("../models/matchesModel");
+const match_teams = require("../src/db/data/test-data/match_teams");
 
 exports.getMatches = (req, res) => {
   fetchMatches().then((matches) => {
@@ -114,8 +116,21 @@ exports.getMatchTeamsByMatchId = (req, res, next) => {
 
 exports.postMatchTeams = (req, res, next) => {
   const { team_id } = req.body;
-  const { match_id } = req.param;
-  insertMatchTeams(match_id, team_id).then((match_teams) => {
-    res.status(201).send({ match_teams });
-  });
+  const { match_id } = req.params;
+  console.log(match_id);
+  insertMatchTeams(match_id, team_id)
+    .then((match_team) => {
+      res.status(200).send({ match_team });
+    })
+    .catch(next);
+};
+
+exports.patchMatchTeamsByMatchId = (req, res, next) => {
+  const { match_id } = req.params;
+  const { team_id, score } = req.body;
+  updateMatchTeamsByMatchId(match_id, team_id, score)
+    .then((match_team) => {
+      res.status(200).send({ match_team });
+    })
+    .catch(next);
 };
