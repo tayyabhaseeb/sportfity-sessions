@@ -86,6 +86,7 @@ app.patch("/api/matches/:match_id", patchMatch);
 app.post("/api/matches/:match_id/match_players", postMatchPlayer);
 app.delete("/api/matches/:match_id", deleteMatch);
 app.get("/api/matches/:match_id/match_teams", getMatchTeamsByMatchId);
+app.post("/api/matches/:match_id/match_teams".postMatchTeams);
 
 //organisers
 app.get("/api/organisers", getOrganiser);

@@ -11,6 +11,7 @@ const {
   removeMatchPlayers,
   fetchLineUpByMatchId,
   fetchMatchTeamsByMatchId,
+  insertMatchTeams,
 } = require("../models/matchesModel");
 
 exports.getMatches = (req, res) => {
@@ -108,5 +109,13 @@ exports.getMatchTeamsByMatchId = (req, res, next) => {
   const { match_id } = req.params;
   fetchMatchTeamsByMatchId(match_id).then((teams) => {
     res.status(200).send({ teams });
+  });
+};
+
+exports.postMatchTeams = (req, res, next) => {
+  const { team_id } = req.body;
+  const { match_id } = req.param;
+  insertMatchTeams(match_id, team_id).then((match_teams) => {
+    res.status(201).send({ match_teams });
   });
 };
