@@ -175,12 +175,28 @@ exports.fetchMatchTeamsByMatchId = (match_id) => {
 };
 
 exports.insertMatchTeams = (match_id, team_id) => {
-  const postMatchTeamsQueryStr = format(
+  const insertMatchTeamsQueryStr = format(
     `INSERT INTO match_teams (match_id, team_id) VALUES (%L) RETURNING *`,
     [match_id, team_id]
   );
 
-  return db.query(postMatchTeamsQueryStr).then(({ rows }) => {
+  return db.query(insertMatchTeamsQueryStr).then(({ rows }) => {
+    return rows;
+  });
+};
+
+exports.updateMatchTeamsByMatchId = (match_id, team_id, score) => {
+  const updateMatchTeamByMatchIdQueryStr = format(
+    `UPDATE match_teams SET score = data.score 
+    FROM (VALUES (CAST(%L AS INTEGER), CAST(%L AS INTEGER), CAST(%L AS INTEGER)))
+    AS data(match_id, team_id, score) 
+    WHERE match_teams.match_id = data.match_id AND match_teams.team_id = data.team_id RETURNING *;`,
+    match_id,
+    team_id,
+    score
+  );
+
+  return db.query(updateMatchTeamByMatchIdQueryStr).then(({ rows }) => {
     return rows;
   });
 };
