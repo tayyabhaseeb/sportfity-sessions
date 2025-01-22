@@ -226,7 +226,7 @@ const joinMatchTeam = () => {
         match_teams_id SERIAL PRIMARY  KEY,
         match_id INT REFERENCES matches(match_id),
         team_id INT REFERENCES teams(team_id),
-        score INT
+        score INT DEFAULT 0
         );
         `);
 };
