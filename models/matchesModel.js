@@ -173,3 +173,14 @@ exports.fetchMatchTeamsByMatchId = (match_id) => {
     return rows;
   });
 };
+
+exports.insertMatchTeams = (match_id, team_id) => {
+  const postMatchTeamsQueryStr = format(
+    `INSERT INTO match_teams (match_id, team_id) VALUES (%L) RETURNING *`,
+    [match_id, team_id]
+  );
+
+  return db.query(postMatchTeamsQueryStr).then(({ rows }) => {
+    return rows;
+  });
+};
