@@ -9,7 +9,7 @@ Sportify Sessions is a RESTful API built for managing players, teams, managers, 
 
 You can see the live preview of the project here:  
 👉 **[Sportify Sessions](https://northcoders.com/project-phase/sportify-sessions)**  
-*(Replace with your actual deployed link)*
+
 
 ---
 
