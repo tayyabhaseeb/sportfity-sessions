@@ -88,7 +88,7 @@ You can see the live preview of the project here:
 
 - Node.js  
 - Express.js  
-- PostgreSQL / MongoDB *(adjust as needed)*  
+- PostgreSQL / MongoDB
 - Jest / Supertest *(for testing)*
 
 ---
